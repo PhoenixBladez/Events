@@ -1,0 +1,8 @@
+Various Weathers is a small mod that adds multiple minor weather effects to spice up Day/Night cycles. All weather has a chance of occuring at dawn/dusk. Weather effects tend to last for a whole day/night. Here are some of the weather effects you will see:
+
+- Thunderstorms
+- Meteor Showers
+- Acid Rain
+- Heat Waves
+- ...and many more!
+

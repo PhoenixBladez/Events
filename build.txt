@@ -1,0 +1,4 @@
+author = Yuyutsu
+version = 0.2.0.1
+displayName = Various Weathers
+languageVersion = 6
