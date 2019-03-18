@@ -21,9 +21,9 @@ namespace Events.Projectiles.Lightning
             projectile.height = 28;  //projectile height
             projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
             projectile.penetrate = -1;      //how many projectile will penetrate
-            projectile.timeLeft = 600;   //how many time projectile projectile has before disepire
+            projectile.timeLeft = 240;   //how many time projectile projectile has before disepire
             projectile.light = 0.45f;    // projectile light
-            projectile.extraUpdates = 10;
+            projectile.extraUpdates = 6;
             projectile.ignoreWater = true;
 			projectile.alpha = 255;
         }

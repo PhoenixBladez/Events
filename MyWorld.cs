@@ -7,9 +7,15 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.Generation;
 using Terraria.ModLoader.IO;
 using System.Reflection;
+using Terraria;
+using Terraria.Graphics;
+using Terraria.Graphics.Effects;
+using Terraria.Utilities;
+using Events;
 using Terraria.Utilities;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -19,175 +25,332 @@ namespace Events
 	{
 		private static bool dayTimeLast;
 		public static bool dayTimeSwitched;
+		public static int auroraType = 0;
+		public static int auroraChance = 3;
+		public static int jellyChance = 16;
 
-		public static bool Meteor = false;
-		public static bool Lightning = false;
-		public static bool Jellyfish = false;
-		public static bool acidRain = false;
-		
-		public static bool heavyRain = false;
-		public static bool windy = false;
-		public static bool heavyWinds = false;
-		public static bool Hail = false;
-		public static bool lightRain = false;
-		public static bool heatWave = false;
-
-		public override void Initialize()
+		public static float screenshakeAmount = 0f;
+        public static List<int> activeEvents = new List<int>();
+		public bool windy = false;
+		public bool heavyWinds = false;
+        public override void Initialize()
 		{
-			Meteor = false;
-			Lightning = false;
-			Jellyfish = false;
-			acidRain = false;
-			heavyRain = false;
-			Hail = false;
-			windy = false;
-			heavyWinds = false;
-			lightRain = false;
-			heatWave = false;
-		}
+            activeEvents = new List<int>();
+        }
+		public bool txt = false;
+		public bool txt1 = false;
+
+		public int rainCheck = 0;
+		public bool rainEvent = false;
 		public override void PostUpdate()
 		{
-			if (MyWorld.heatWave)
-			{
-				Main.raining = false;
-			}
 			if (Main.dayTime != dayTimeLast)
 				dayTimeSwitched = true;
 			else
 				dayTimeSwitched = false;
 			dayTimeLast = Main.dayTime;
+		    if (dayTimeSwitched)
+		    {
+			     activeEvents = new List<int>();
+		    }
 
-			if (dayTimeSwitched)
-			{
-				if (!Main.dayTime)
-				{
-					if (Main.rand.Next(20) == 0 && NPC.downedBoss2)
+		    if (dayTimeSwitched)
+		    {
+			    if (!activeEvents.Any())
+                {
+				    if (Main.raining)
+				    {
+					    if (Main.rand.Next(5) == 0)
+					    {
+						    StartEvent(EventID.Lightning);
+					    }
+					    if (Main.rand.Next(11) == 0 && Main.hardMode)
+					    {
+						    StartEvent(EventID.acidRain);
+					    }
+					    if (Main.rand.Next(5) == 0)
+					    {
+						    StartEvent(EventID.Hail);
+					    }
+					    if (Main.rand.Next(4) == 0)					
+					    {
+					    StartEvent(EventID.heavyRain);						
+					    }
+					    else if (Main.rand.Next(5) == 0)
+					    {
+				         StartEvent(EventID.lightRain);
+					    }					
+					    if (Main.rand.Next(23) == 0)
+					    {
+						    if (!MyWorld.activeEvents.Contains(EventID.lightRain) || !MyWorld.activeEvents.Contains(EventID.heavyRain) || !MyWorld.activeEvents.Contains(EventID.acidRain) || !MyWorld.activeEvents.Contains(EventID.Hail))
+						    {
+						        StartEvent(EventID.hurricane);
+							    EndEvent(EventID.lightRain);							 
+						    }
+						    if (!MyWorld.activeEvents.Contains(EventID.heavyWinds))
+						    {
+						         StartEvent(EventID.heavyWinds);							 
+						    }
+					    }
+					    else
+					    {
+						    EndEvent(EventID.hurricane);		
+					    }
+				    }
+				    if (NPC.downedBoss3)
+				    {
+					    auroraChance = 5;
+				    }
+				    if (Main.hardMode)
+				    {
+					    auroraChance = 10;
+				    }
+				    if (!Main.dayTime && Main.rand.Next(auroraChance) == 0)
+				    {
+					    auroraType = Main.rand.Next(new int[]{1, 2, 3, 4, 5});
+					    StartEvent(EventID.aurora);
+				    }
+				    else
+				    {
+					    EndEvent(EventID.aurora);
+					    auroraType = 0;
+				    }
+				    if (Main.rand.Next(13) == 0 && NPC.downedBoss2 && !Main.dayTime)
+				    {
+					    StartEvent(EventID.Meteor);
+				    }
+				    else
+				    {
+					    EndEvent(EventID.Meteor);
+				    }
+					 if (!Main.raining && Main.rand.Next(12) == 0 && Main.dayTime && Main.hardMode)
+				    {
+					    StartEvent(EventID.ashfall);
+				    }
+				    else
+				    {
+					    EndEvent(EventID.ashfall);
+				    }
+				    if (!Main.raining && Main.rand.Next(20) == 0 && Main.hardMode && Main.dayTime)
+				    {
+					    StartEvent(EventID.ashStorm);
+					    EndEvent(EventID.ashfall);
+				    }
+				    else
+				    {
+					    EndEvent(EventID.ashStorm);
+				    }
+					if (!Main.raining && Main.rand.Next(16) == 0 && Main.dayTime)
 					{
-						Main.NewText("Meteor shower inbound! It's going to be a beautiful night...", 255, 28, 99);
-						Meteor = true;
+						StartEvent(EventID.heatWave);
 					}
-				}
-				else
-				{
-					Meteor = false;
-				}
-			}
-			
-			if (dayTimeSwitched)
-			{
-				if (Main.raining && Main.rand.Next(12) == 0 && Main.hardMode)
-				{
-					Main.NewText("A putrid acid rain is setting in...", 111, 178, 44);
-					acidRain = true;					
-				}
-				else
-				{
-					acidRain = false;
-				}
-			}
-			if (dayTimeSwitched)
-			{
-				if (Main.raining && Main.rand.Next(7) == 0 && !MyWorld.acidRain)
-				{
-						Main.NewText("Watch out! A thunderstorm is brewing!", 66, 244, 223);
-						Lightning = true;					
-				}
-				else if (!Main.raining)
-				{
-					Lightning = false;
-				}
-				else
-				{
-					Lightning = false;
-				}
-			}
-			if (dayTimeSwitched)
-			{
-				if (Main.raining && Main.rand.Next(10) == 0 && !MyWorld.acidRain && !MyWorld.lightRain)
-				{
-						Main.NewText("The storm grows torrential...", 66, 134, 244);
-						heavyRain = true;					
-				}
-				else
-				{
-					heavyRain = false;
-				}
-			}
-			if (dayTimeSwitched)
-			{
-				if (Main.raining && Main.rand.Next(10) == 0 && !MyWorld.acidRain && !MyWorld.heavyRain)
-				{
-						Main.NewText("The rain is slowing to a drizzle!", 66, 134, 244);
-						lightRain = true;					
-				}
-				else
-				{
-					lightRain = false;
-				}
-			}
-			if (dayTimeSwitched)
-			{
-				if (Main.raining && Main.rand.Next(8) == 0 && !MyWorld.acidRain && !MyWorld.Lightning)
-				{
-						Main.NewText("It's hailing!", 66, 215, 244);
-						Hail = true;					
-				}
-				else
-				{
-					Hail = false;
-				}
-			}
-			if (dayTimeSwitched)
-			{
-				if (Main.rand.Next(12) == 0 && !MyWorld.heatWave)
-				{
-						Main.NewText("It's a windy outside!", 133, 171, 175);
-						windy = true;					
-				}
-				else
-				{
-					windy = false;
-				}
-			}
-			if (dayTimeSwitched)
-			{
-				if (Main.rand.Next(26) == 0 && !MyWorld.heatWave && !MyWorld.windy)
-				{
-						Main.NewText("The wind is roaring!", 133, 171, 175);
-						heavyWinds = true;					
-				}
-				else
-				{
-					heavyWinds = false;
-				}
-			}
-			if (dayTimeSwitched)
-			{
-				if (!Main.raining && Main.rand.Next(30) == 0 && Main.dayTime)
-				{
-						Main.NewText("It's getting really hot...", 244, 209, 66);
-						heatWave = true;	
-				}
-				else
-				{
-					heatWave = false;
-				}
-			}
-			if (dayTimeSwitched)
-			{
-				if (!Main.dayTime)
-				{
-					if (Main.rand.Next(50) == 0)
+					else if (!Main.raining && Main.rand.Next(13) == 0 && Main.dayTime)
 					{
-						Main.NewText("The ocean is glowing on the horizon!", 255, 109, 230);
-						Jellyfish = true;
+						StartEvent(EventID.coldFront);
 					}
-				}
-				else
+					else
+					{
+					EndEvent(EventID.heatWave);
+					EndEvent(EventID.coldFront);
+					}
+					if (Main.rand.Next(23) == 0)
+				    {
+					    StartEvent(EventID.tremors);
+					    screenshakeAmount = 5f;
+				    }
+				    else
+				    {
+					    EndEvent(EventID.tremors);
+				    }
+				    if (Main.hardMode)
+				    {
+					    jellyChance = 25;
+				    }
+				    if (Main.rand.Next(jellyChance) == 0 && !Main.dayTime)
+				    {
+					    StartEvent(EventID.Jellyfish);
+				    }
+				    else
+				    {
+					    EndEvent(EventID.Jellyfish);
+				    }
+				    if (Main.rand.Next(16) == 0 && !Main.hardMode || Main.rand.Next(37) == 0 && Main.hardMode)
+				    {
+					    StartEvent(EventID.tranquil);
+					    EndEvent(EventID.ashfall);
+					    EndEvent(EventID.ashStorm);
+					    EndEvent(EventID.heatWave);
+					    EndEvent(EventID.Lightning);
+					    EndEvent(EventID.Hail);
+					    EndEvent(EventID.acidRain);
+					    EndEvent(EventID.hurricane);
+					    EndEvent(EventID.heavyWinds);
+				    }
+				    else
+				    {
+					    EndEvent(EventID.tranquil);
+				    }
+				    if (Main.rand.Next(10) == 0 && !Main.raining && Main.dayTime || Main.rand.Next(20) == 0 && !Main.raining  && Main.dayTime)
+				    {
+					    StartEvent(EventID.butterflies);
+					    NPC.butterflyChance = 2;
+				    }
+				    else
+				    {
+					    EndEvent(EventID.butterflies);
+				    }
+				    if (Main.rand.Next(13) == 0 && !Main.raining && !Main.dayTime || Main.rand.Next(25) == 0 && !Main.raining  && !Main.dayTime)
+                    {
+                        NPC.fireFlyChance = Main.rand.Next(0, 2);
+                        NPC.fireFlyMultiple = Main.rand.Next(0, 6);
+                        StartEvent(EventID.fireflies);
+				    }
+				    else
+				    {
+					    EndEvent(EventID.fireflies);
+				    }
+					if (Main.rand.Next(12) == 0 && !Main.raining && !Main.dayTime || Main.rand.Next(25) == 0 && !Main.raining  && !Main.dayTime)
+					{
+						StartEvent(EventID.stardust);
+					}
+					else
+					{
+						EndEvent(EventID.stardust);
+					}		
+                }
+		    }
+		    if (Main.windSpeed <= -.2f || Main.windSpeed >= .2f)
+			{
+				if (Main.windSpeed >= -.3f || Main.windSpeed <= .3f)
 				{
-					Jellyfish = false;
+					{
+						if (!txt)
+						{
+						 StartEvent(EventID.windy);	
+						 txt = true;
+						 }											 
+					}
+				}						
+			}
+			else
+			{
+				EndEvent(EventID.windy);
+				txt = false;
+			}
+			if (Main.windSpeed <= -.3f|| Main.windSpeed >= .3f)
+			{
+				{
+					if (!txt1)
+					{
+                        StartEvent(EventID.heavyWinds);
+					    txt1 = true;
+					}
+					
 				}
+			}
+			else
+			{
+				txt1 = false;
+				EndEvent(EventID.heavyWinds);
+			}
+			if (!Main.raining)
+			{
+					EndEvent(EventID.lightRain);
+					EndEvent(EventID.heavyRain);
+					EndEvent(EventID.Lightning);
+					EndEvent(EventID.hurricane);
+					EndEvent(EventID.Hail);
+					EndEvent(EventID.acidRain);
 			}
 		}
+			public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
+		{
+			int num2 = tasks.FindIndex((GenPass genpass) => genpass.Name.Equals("Shinies"));
+			if (num2 == -1)
+			{
+				return;
+			}
+			tasks.Insert(num2 + 1, new PassLegacy("Placing Weather Beacons", delegate(GenerationProgress progress)
+			{
+				for (int i = 0; i < Main.maxTilesX * 1.3f; i++)
+				{
+					int num3 = WorldGen.genRand.Next(0, Main.maxTilesX);
+					int num4 = WorldGen.genRand.Next((int)WorldGen.rockLayer + 100, Main.maxTilesY);
+					WorldGen.PlaceObject(num3, num4, mod.TileType("BrokenBeacon_Tile"), false, 0, 0, -1, -1);
+					NetMessage.SendObjectPlacment(-1, num3, num4, mod.TileType("BrokenBeacon_Tile"), 0, 0, -1, -1);
+				}
+			}));
+		}
+		public override void PreUpdate()
+		{
+			Player player = Main.LocalPlayer;
+			if (player.ZoneHoly)
+			{
+				Main.rainTexture = mod.GetTexture("Images/Misc/HallowRain");
+			}
+			else if (player.ZoneCorrupt)
+			{
+				Main.rainTexture = mod.GetTexture("Images/Misc/CorruptRain");
+			}
+			else if (player.ZoneCrimson)
+			{
+				Main.rainTexture = mod.GetTexture("Images/Misc/CrimsonRain");
+			}
+			else if (activeEvents.Contains(EventID.acidRain))
+			{
+				Main.rainTexture = mod.GetTexture("Images/Misc/AcidRain");
+			}
+			else
+			{
+				char directorySeparatorChar2 = Path.DirectorySeparatorChar;
+				string str166 = "Images";
+				directorySeparatorChar2 = Path.DirectorySeparatorChar;
+				string str167 = directorySeparatorChar2.ToString();
+				string str168 = "Rain";
+   
+				Main.rainTexture =  TextureManager.Load(str166 + str167 + str168);
+			}
+		}
+
+        private void StartEvent(int id)
+        {
+            if (Main.netMode != 0)
+            {
+                ModPacket packet = mod.GetPacket();
+                packet.Write((byte)PacketType.StartEvent);
+                packet.Write(id);
+                packet.Send();
+
+                switch(id)
+                {
+                    case EventID.aurora:
+                        ModPacket data = mod.GetPacket();
+                        data.Write((byte)PacketType.AuroraData);
+                        data.Write(auroraType);
+                        data.Send();
+                        break;
+                    case EventID.fireflies:
+                        ModPacket data2 = mod.GetPacket();
+                        data2.Write((byte)PacketType.FireflyData);
+                        data2.Write(NPC.fireFlyChance);
+                        data2.Write(NPC.fireFlyMultiple);
+                        data2.Send();
+                        break;
+                }
+            }
+            activeEvents.Add(id);
+        }
+
+        private void EndEvent(int id)
+        {
+            if (Main.netMode != 0)
+            {
+                ModPacket packet = mod.GetPacket();
+                packet.Write((byte)PacketType.EndEvent);
+                packet.Write(id);
+                packet.Send();
+            }
+            activeEvents.Remove(id);
+        }
 	}
 }

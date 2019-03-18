@@ -54,7 +54,7 @@ namespace Events.NPCs.MeteorShower.MeteorWorm
 			Player player = spawnInfo.player;
 			if (!(player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust) && ((!Main.pumpkinMoon && !Main.snowMoon) || spawnInfo.spawnTileY > Main.worldSurface || Main.dayTime) && (!Main.eclipse || spawnInfo.spawnTileY > Main.worldSurface || !Main.dayTime) && (SpawnCondition.GoblinArmy.Chance == 0))
 			{
-				return player.ZoneMeteor && MyWorld.Meteor ? 0.051f : 0f;
+				return player.ZoneMeteor && MyWorld.activeEvents.Contains(EventID.Meteor) ? 0.051f : 0f;
 			}
 			return 0f;
 		}

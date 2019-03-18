@@ -28,6 +28,23 @@ namespace Events.Items
 				Main.dust[dust].velocity *= 0f;
 			}
 		}
-		
+		public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
+		{
+			Player player = Main.LocalPlayer;
+			if (MyWorld.activeEvents.Contains(EventID.hurricane) && player.ZoneOverworldHeight)
+			{
+				item.velocity.X += .5f * (float)Main.windSpeed;
+			}
+		}
+		public override bool UseItem(Item item, Player player)
+        {
+			if (item.type == ItemID.BottledWater)
+			{
+			player.AddBuff(mod.BuffType("WaterBuff"), 14400);
+			 			return true;
+			}
+			else
+			return false;
+		}
 	}
 }

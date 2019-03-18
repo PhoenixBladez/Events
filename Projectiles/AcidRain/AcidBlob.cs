@@ -66,22 +66,32 @@ namespace Events.Projectiles.AcidRain
 					return;
 				}
 			}
+			int num = 5;
+				for (int k = 0; k < 3; k++)
+				{
+					int index2 = Dust.NewDust(projectile.position, 1, 1, 184, 0.0f, 0.0f, 0, new Color(), 1f);
+					Main.dust[index2].position = projectile.Center - projectile.velocity / num * (float)k;
+					Main.dust[index2].scale = .5f;
+					Main.dust[index2].velocity *= 0f;
+					Main.dust[index2].noGravity = true;
+					Main.dust[index2].noLight = false;	
+				}					
 
 		}
 		
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-				int d = 193;
+				int d = 184;
 				for (int k = 0; k < 6; k++)
 				{
-					Dust.NewDust(projectile.position, projectile.width, projectile.height, d, 2.5f * 1, -2.5f, 0, Color.Purple, 0.7f);
-					Dust.NewDust(projectile.position, projectile.width, projectile.height, d, 2.5f * 1, -2.5f, 0, Color.Purple, 0.7f);
+					Dust.NewDust(projectile.position, projectile.width, projectile.height, d, 2.5f * 1, -2.5f, 0, Color.White, 0.7f);
+					Dust.NewDust(projectile.position, projectile.width, projectile.height, d, 2.5f * 1, -2.5f, 0, Color.White, 0.7f);
 				}
 
-				Dust.NewDust(projectile.position, projectile.width, projectile.height, d, 2.5f * 1, -2.5f, 0, Color.Purple, 0.7f);
-				Dust.NewDust(projectile.position, projectile.width, projectile.height, d, 2.5f * 1, -2.5f, 0, Color.Purple, 0.7f);
-				Dust.NewDust(projectile.position, projectile.width, projectile.height, d, 2.5f * 1, -2.5f, 0, Color.Purple, 0.7f);
-				Dust.NewDust(projectile.position, projectile.width, projectile.height, d, 2.5f * 1, -2.5f, 0, Color.Purple, 0.7f);
+				Dust.NewDust(projectile.position, projectile.width, projectile.height, d, 2.5f * 1, -2.5f, 0, Color.White, 0.7f);
+				Dust.NewDust(projectile.position, projectile.width, projectile.height, d, 2.5f * 1, -2.5f, 0, Color.White, 0.7f);
+				Dust.NewDust(projectile.position, projectile.width, projectile.height, d, 2.5f * 1, -2.5f, 0, Color.White, 0.7f);
+				Dust.NewDust(projectile.position, projectile.width, projectile.height, d, 2.5f * 1, -2.5f, 0, Color.White, 0.7f);
 			projectile.penetrate--;
 			if (projectile.penetrate <= 0)
 				projectile.Kill();

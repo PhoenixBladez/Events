@@ -16,9 +16,11 @@ namespace Events.Projectiles.Jellyfish
 
 		public override void SetDefaults()
 		{
-			projectile.width = 18;
+			projectile.width = 8;
 			projectile.height = 18;
-			projectile.ranged = true;
+			projectile.CloneDefaults(ProjectileID.WoodenArrowFriendly);
+			projectile.thrown = true;
+			projectile.ranged = false;
 			projectile.timeLeft = 600;
 			projectile.friendly = true;
 

@@ -1,4 +1,5 @@
 using Terraria;
+using Events;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -26,14 +27,14 @@ namespace Events.NPCs.AcidRain.Zombie
 			npc.DeathSound = SoundID.NPCDeath2;
 			npc.value = 460f;
 			npc.buffImmune[mod.BuffType("Acid")] = true;
-			npc.knockBackResist = 0f;
+			npc.knockBackResist = 0.01f;
 			npc.aiStyle = 3;
 			aiType = NPCID.Zombie;
 			animationType = NPCID.Zombie;
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			return spawnInfo.spawnTileY < Main.rockLayer && MyWorld.acidRain && !spawnInfo.playerSafe && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse && !Main.dayTime ? 0.8f : 0f;
+			return spawnInfo.spawnTileY < Main.rockLayer && MyWorld.activeEvents.Contains(EventID.acidRain) && !spawnInfo.playerSafe && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse && !Main.dayTime ? 0.8f : 0f;
 		}
 		public override void HitEffect(int hitDirection, double damage)
 		{

@@ -64,7 +64,7 @@ namespace Events.NPCs.AcidRain.Horror
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			return spawnInfo.spawnTileY < Main.rockLayer && MyWorld.acidRain && !spawnInfo.playerSafe && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse && !NPC.AnyNPCs(mod.NPCType("Horror"))? 0.08f : 0f;
+			return spawnInfo.spawnTileY < Main.rockLayer && MyWorld.activeEvents.Contains(EventID.acidRain) && !spawnInfo.playerSafe && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse && !NPC.AnyNPCs(mod.NPCType("Horror"))? 0.08f : 0f;
 		}
 		public override void NPCLoot()
 		{
@@ -93,7 +93,8 @@ namespace Events.NPCs.AcidRain.Horror
 				Dust.NewDust(npc.position, npc.width, npc.height, d, 2.5f * hitDirection, -2.5f, 0, Color.Purple, 0.7f);
 				Dust.NewDust(npc.position, npc.width, npc.height, d, 2.5f * hitDirection, -2.5f, 0, Color.Purple, 0.7f);
 				Dust.NewDust(npc.position, npc.width, npc.height, d, 2.5f * hitDirection, -2.5f, 0, Color.Purple, 0.7f);
-			}
+				Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/AcidEye"), 1f);	
+				}
 				
 		}
 		int shoottimer;
@@ -102,7 +103,6 @@ namespace Events.NPCs.AcidRain.Horror
 		public override bool PreAI()
 		{
 
-	
 			Player player = Main.player[npc.target];
 			shoottimer++;
 			{
@@ -110,15 +110,15 @@ namespace Events.NPCs.AcidRain.Horror
 				{
 					for (int k = 0; k < 20; k++)
 					{
-					Dust.NewDust(npc.position, npc.width, npc.height, 107, 2.5f * 1, -2.5f, 0, Color.Green, 0.7f);
-					Dust.NewDust(npc.position, npc.width, npc.height, 107, 2.5f * 1, -2.5f, 0, Color.Green, 0.7f);
+					Dust.NewDust(npc.position, npc.width, npc.height, 107, 2.5f * 1, -2.5f, 0, Color.White, 0.7f);
+					Dust.NewDust(npc.position, npc.width, npc.height, 107, 2.5f * 1, -2.5f, 0, Color.White, 0.7f);
 					}
 					npc.position.X = player.position.X - Main.rand.Next(-500, 500); //Teleport in a corner of the screen
 					npc.position.Y = player.position.Y + Main.rand.Next (-500, 500);
 					for (int j = 0; j < 20; j++)
 					{
-					Dust.NewDust(npc.position, npc.width, npc.height, 107, 2.5f * 1, -2.5f, 0, Color.Green, 0.7f);
-					Dust.NewDust(npc.position, npc.width, npc.height, 107, 2.5f * 1, -2.5f, 0, Color.Green, 0.7f);
+					Dust.NewDust(npc.position, npc.width, npc.height, 107, 2.5f * 1, -2.5f, 0, Color.White, 0.7f);
+					Dust.NewDust(npc.position, npc.width, npc.height, 107, 2.5f * 1, -2.5f, 0, Color.White, 0.7f);
 					}
 					shoottimer = 0;
 					

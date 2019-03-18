@@ -1,5 +1,9 @@
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Graphics.Effects;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,6 +18,8 @@ namespace Events.Items.AcidRain.Drops
 		{
 			DisplayName.SetDefault("Hazmat Headgear");
 			Tooltip.SetDefault("Provides immunity to the Acid Debuff\nWorks in the vanity slot");
+			//EventsGlowmask.AddGlowMask(item.type, "Events/Items/AcidRain/Drops/HazmatGlow", Color.White);
+		
 		}
 
 

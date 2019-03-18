@@ -82,7 +82,7 @@ namespace Events.NPCs.MeteorShower.Blob
 								Player target = Main.player[npc.target];
 				Player player = Main.player[npc.target];
 				int distance = (int)Math.Sqrt((npc.Center.X - target.Center.X) * (npc.Center.X - target.Center.X) + (npc.Center.Y - target.Center.Y) * (npc.Center.Y - target.Center.Y));
-				if (distance < 400)
+				if (distance < 800)
 				{
 					counters++;
 					

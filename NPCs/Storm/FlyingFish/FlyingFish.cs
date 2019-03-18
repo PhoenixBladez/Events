@@ -49,7 +49,7 @@ namespace Events.NPCs.Storm.FlyingFish
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			return spawnInfo.spawnTileY < Main.rockLayer && MyWorld.Lightning && Main.raining && !spawnInfo.playerSafe && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse ? 0.1f : 0f;
+			return spawnInfo.spawnTileY < Main.rockLayer && MyWorld.activeEvents.Contains(EventID.Lightning) && Main.raining && !spawnInfo.playerSafe && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse ? 0.1f : 0f;
 		}
 		public override void NPCLoot()
 		{

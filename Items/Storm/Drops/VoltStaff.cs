@@ -61,9 +61,14 @@ namespace Events.Items.Storm.Drops
             item.autoReuse = true;
             item.shootSpeed = 12f;
         }
+		
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-
+			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
+			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+			{
+				position += muzzleOffset;
+			}
             int proj = Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, Main.myPlayer, 0.0f, 1);
 			Main.projectile[proj].friendly = true;
 			Main.projectile[proj].hostile = false;

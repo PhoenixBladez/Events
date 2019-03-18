@@ -1,5 +1,5 @@
 using System;
-
+using Events;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,7 +10,7 @@ namespace Events.Buffs
 		public override void SetDefaults()
 		{
 			DisplayName.SetDefault("Heatstroke");
-			Description.SetDefault("It's... so... hot...");
+			Description.SetDefault("The sweltering heat is reduces your movement speed");
 
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
@@ -22,15 +22,19 @@ namespace Events.Buffs
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>(mod);
 			modPlayer.heatEffect = true;
 			
-			if (!MyWorld.heatWave)
+			if (!MyWorld.activeEvents.Contains(EventID.heatWave))
 			{
 			player.buffTime[buffIndex] = 0;
 			modPlayer.heatEffect = false;
 			}
-			else if (player.ZoneSnow || player.wet)
+			else if (player.ZoneSnow || player.wet || player.HasBuff(mod.BuffType("WaterBuff")))
 			{
 			player.buffTime[buffIndex] = 0;	
 			modPlayer.heatEffect = false;		
+			}
+			if (player.ZoneDesert  || player.HasBuff(mod.BuffType("WaterBuff")))
+			{
+				player.lifeRegen -= 4;
 			}
 		}
 	}

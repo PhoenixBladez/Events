@@ -22,8 +22,8 @@ namespace Events.Projectiles.Lightning
 
 		public override void SetDefaults()
 		{
-			projectile.width = 6;
-			projectile.height = 6;
+			projectile.width = 16;
+			projectile.height = 16;
 			aiType = ProjectileID.Bullet;
 			projectile.alpha = 255;
 			projectile.timeLeft = 300;
@@ -38,24 +38,20 @@ namespace Events.Projectiles.Lightning
 				target.AddBuff(BuffID.Electrified, 180, true);
 			}
 		}
+		public float counter = -1440;
 		public override void AI()
 		{
-			if (!init)
+			counter++;
+			if (counter >= 1440)
 			{
-				initialVel = projectile.velocity;
-				init = true;
+				counter = -1440;
 			}
-			projectile.velocity = Vector2.Zero;
-			projectile.Center = projectile.Center + initialVel.RotatedByRandom(MathHelper.ToRadians(30));
-
-			for (int i = 0; i < 5; i++)
 			{
-				float x = projectile.Center.X - projectile.velocity.X / 8f * (float)i;
-				float y = projectile.Center.Y - projectile.velocity.Y / 8f * (float)i;
-				int num = Dust.NewDust(new Vector2(x, y), 6, 6, 226);
-				Main.dust[num].velocity = Vector2.Zero;
-				Main.dust[num].scale *= .5f;
-									Main.dust[num].velocity*=0.4f;
+				
+				int num = Dust.NewDust(projectile.Center + new Vector2(0, (float)Math.Cos(counter)*8).RotatedBy(projectile.rotation), 8, 8, 226, 0.0f, 0.0f, 200, new Color(), 0.5f);
+				Main.dust[num].velocity *= .1f;
+				Main.dust[num].scale *= 1.4f;
+								
 				Main.dust[num].noGravity = true;
 			}
 		}

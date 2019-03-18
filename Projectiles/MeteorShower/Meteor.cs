@@ -18,7 +18,7 @@ namespace Events.Projectiles.MeteorShower
 
 		public override void SetDefaults()
 		{
-			projectile.width = 26;
+			projectile.width = 16;
 			projectile.penetrate = 1;
 			projectile.timeLeft = 6000;
 			projectile.height = 40;
@@ -55,7 +55,7 @@ namespace Events.Projectiles.MeteorShower
 		}
 		public override void Kill(int timeLeft)
 		{
-			if (Main.rand.Next(20) == 0)
+			if (Main.rand.Next(16) == 0)
 			{
 			int spiritdude = NPC.NewNPC((int)projectile.Center.X, (int)projectile.Center.Y, mod.NPCType("Blob"), 0, 0, 0, 0, -1);
 			}

@@ -15,12 +15,13 @@ namespace Events.Items.MeteorShower.Drops
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Celestial Conduit");
-			Tooltip.SetDefault("Opens up an astral rift that shoots beams at enemies/n Up to one portal can exist at once");
+			Tooltip.SetDefault("Opens up an astral rift that shoots beams at enemies\n Up to one portal can exist at once");
 			EventsGlowmask.AddGlowMask(item.type, "Events/Items/MeteorShower/Drops/AstralStaff_Glow");
 		}
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float  scale, int whoAmI) 	
 		{
+			
 			Lighting.AddLight(item.position, 0.35f, 0.2f, 0.5f);
 			Texture2D texture;
 			texture = Main.itemTexture[item.type];
@@ -61,6 +62,7 @@ namespace Events.Items.MeteorShower.Drops
             item.shoot = mod.ProjectileType("AstralRift");
             item.shootSpeed = 16f;
         }
+		
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 mouse = new Vector2(Main.mouseX, Main.mouseY) + Main.screenPosition;

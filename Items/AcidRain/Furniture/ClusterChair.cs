@@ -16,8 +16,8 @@ namespace Events.Items.AcidRain.Furniture
 
 		public override void SetDefaults()
 		{
-            item.width = 64;
-			item.height = 34;
+            item.width = 16;
+			item.height = 30;
             item.value = 150;
 
             item.maxStack = 99;

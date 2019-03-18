@@ -93,6 +93,7 @@ namespace Events.NPCs.Storm.Elemental
 		float shootscale;
 		public override bool PreAI()
 		{
+			bool expertMode = Main.expertMode;
 			shoottimer++;
 			{
 				if(shoottimer == 240 || shoottimer == 250 | shoottimer >= 260)
@@ -108,7 +109,8 @@ namespace Events.NPCs.Storm.Elemental
 						{
 							float A = (float)Main.rand.Next(-50, 50) * 0.02f;
 							float B = (float)Main.rand.Next(-50, 50) * 0.02f;
-							int p = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, direction.X + A, direction.Y + B, mod.ProjectileType("Volt"), npc.damage / 2, 1, Main.myPlayer, 0, 0);
+							int somedamage = expertMode ? 22 : 35;
+							int p = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, direction.X + A, direction.Y + B, mod.ProjectileType("Volt"), somedamage, 1, Main.myPlayer, 0, 0);
 							Main.projectile[p].hostile = true;
 						}
 						if (shoottimer >= 260)
@@ -160,7 +162,7 @@ namespace Events.NPCs.Storm.Elemental
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			return spawnInfo.spawnTileY < Main.rockLayer && MyWorld.Lightning && Main.hardMode && Main.raining && !spawnInfo.playerSafe && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse ? 0.01f : 0f;
+			return spawnInfo.spawnTileY < Main.rockLayer && MyWorld.activeEvents.Contains(EventID.Lightning) && Main.hardMode && Main.raining && !spawnInfo.playerSafe && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse ? 0.01f : 0f;
 		}
 	}
 }

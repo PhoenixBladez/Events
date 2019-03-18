@@ -20,13 +20,14 @@ namespace Events.Buffs
 		{
 			if(!npc.boss)
 			{
-			npc.velocity.X = .0f;
-			if(Main.rand.Next(4) == 0)
-			{
-			int d = Dust.NewDust(npc.position, npc.width, npc.height, 226);
-			Main.dust[d].velocity *= .0f;
-			Main.dust[d].scale *= .5f;
-			}
+				npc.velocity.X = .0f;
+				if(Main.rand.Next(4) == 0)
+				{
+				int d = Dust.NewDust(npc.position, npc.width, npc.height, 226);
+				Main.dust[d].velocity *= 0.5f;
+				Main.dust[d].scale *= .5f;
+				Main.dust[d].noGravity = true;
+				}
 			}
 		}
 	}

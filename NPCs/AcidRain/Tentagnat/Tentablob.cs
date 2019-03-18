@@ -5,6 +5,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
+using Events;
 
 namespace Events.NPCs.AcidRain.Tentagnat
 {
@@ -32,7 +33,7 @@ namespace Events.NPCs.AcidRain.Tentagnat
 			bannerItem = mod.ItemType("TentablobBanner");
 			npc.lifeMax = 400;
 			npc.defense = 12;
-			npc.knockBackResist = 0.4f;
+			npc.knockBackResist = 0.5f;
 			npc.value = 600f;
 
 			npc.noGravity = true;
@@ -41,7 +42,7 @@ namespace Events.NPCs.AcidRain.Tentagnat
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			return spawnInfo.spawnTileY < Main.rockLayer && MyWorld.acidRain && !spawnInfo.playerSafe && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse ? 0.4f : 0f;
+			return spawnInfo.spawnTileY < Main.rockLayer && MyWorld.activeEvents.Contains(EventID.acidRain) && !spawnInfo.playerSafe && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse ? 0.4f : 0f;
 		}
 		public override void HitEffect(int hitDirection, double damage)
 		{
@@ -64,6 +65,7 @@ namespace Events.NPCs.AcidRain.Tentagnat
 					NPC.NewNPC((int)npc.Center.X + Main.rand.Next (-10, 10), (int)npc.Center.Y + Main.rand.Next (-10, 10), mod.NPCType("Tentagnat"), 0, 0, 0, 0, -1);
 					
 					NPC.NewNPC((int)npc.Center.X + Main.rand.Next (-10, 10), (int)npc.Center.Y + Main.rand.Next (-10, 10), mod.NPCType("Tentagnat"), 0, 0, 0, 0, -1);
+					Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/TentagnatEye"), 1f);
 				}
 				
 				Main.PlaySound(3, (int)npc.position.X, (int)npc.position.Y, 19);

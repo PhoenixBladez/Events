@@ -16,7 +16,7 @@ namespace Events.Items.AcidRain.Toxictop
         {
 			if (type == 2 || type == 60 || type == 23)
 			{
-				if(TileArray2.Contains(Framing.GetTileSafely(i,j-1).type) &&TileArray2.Contains(Framing.GetTileSafely(i,j-2).type) && MyWorld.acidRain == true)
+				if(TileArray2.Contains(Framing.GetTileSafely(i,j-1).type) &&TileArray2.Contains(Framing.GetTileSafely(i,j-2).type) && MyWorld.activeEvents.Contains(EventID.acidRain) == true)
 				{
                         if(Main.rand.Next(200)==0)
                         {

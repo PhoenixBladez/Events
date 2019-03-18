@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ModLoader;
+using Events;
 
 namespace Events.Water
 {
@@ -10,7 +11,7 @@ namespace Events.Water
 		public override bool ChooseWaterStyle()
 		{
 			Player player = Main.LocalPlayer;;
-			return MyWorld.acidRain && player.ZoneOverworldHeight;
+			return MyWorld.activeEvents.Contains(EventID.acidRain) && player.ZoneOverworldHeight && !player.HasBuff(mod.BuffType("AcidPure"));
 		}
 
 		public override int ChooseWaterfallStyle()

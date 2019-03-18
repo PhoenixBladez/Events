@@ -4,6 +4,7 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Events;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -19,13 +20,13 @@ namespace Events.NPCs.AcidRain.Nimbus
 
 		public override void SetDefaults()
 		{
-			npc.damage = 52;
+			npc.damage = 51;
 			npc.width = 46; //324
 			npc.height = 40; //216
 			npc.buffImmune[mod.BuffType("Acid")] = true;
 			npc.defense = 26;
 			npc.lifeMax = 320;
-			npc.knockBackResist = 0.3f;
+			npc.knockBackResist = 0.4f;
 			npc.noGravity = true;
 			npc.value = Item.buyPrice(0, 0, 5, 0);
 			banner = npc.type;
@@ -140,6 +141,7 @@ namespace Events.NPCs.AcidRain.Nimbus
 				Dust.NewDust(npc.position, npc.width, npc.height, d, 2.5f * hitDirection, -2.5f, 0, Color.Green, 0.7f);
 				Dust.NewDust(npc.position, npc.width, npc.height, d, 2.5f * hitDirection, -2.5f, 0, Color.Green, 0.7f);
 				Dust.NewDust(npc.position, npc.width, npc.height, d, 2.5f * hitDirection, -2.5f, 0, Color.Green, 0.7f);
+								Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/AcidEye"), 1f);	
 			}
 		}
 		public override void NPCLoot()
@@ -155,7 +157,7 @@ namespace Events.NPCs.AcidRain.Nimbus
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			return spawnInfo.spawnTileY < Main.rockLayer && MyWorld.acidRain && !spawnInfo.playerSafe && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse ? 0.4f : 0f;
+			return spawnInfo.spawnTileY < Main.rockLayer && MyWorld.activeEvents.Contains(EventID.acidRain) && !spawnInfo.playerSafe && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse ? 0.4f : 0f;
 		}
 		public override void FindFrame(int frameHeight)
 		{

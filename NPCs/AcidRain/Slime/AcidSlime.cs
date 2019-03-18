@@ -21,7 +21,7 @@ namespace Events.NPCs.AcidRain.Slime
 		{
 			npc.width = 32;
 			npc.height = 24;
-			npc.damage = 56;
+			npc.damage = 55;
 			npc.defense = 14;
 			npc.lifeMax = 200;
 			npc.buffImmune[mod.BuffType("Acid")] = true;
@@ -38,7 +38,7 @@ namespace Events.NPCs.AcidRain.Slime
 		}
 	public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			return spawnInfo.spawnTileY < Main.rockLayer && MyWorld.acidRain && !spawnInfo.playerSafe && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse ? 0.9f : 0f;
+			return spawnInfo.spawnTileY < Main.rockLayer && MyWorld.activeEvents.Contains(EventID.acidRain) && !spawnInfo.playerSafe && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse ? 0.9f : 0f;
 		}
 		public override void AI()
 		{
@@ -85,6 +85,7 @@ namespace Events.NPCs.AcidRain.Slime
 				Dust.NewDust(npc.position, npc.width, npc.height, d, 2.5f * hitDirection, -2.5f, 0, Color.Purple, 0.7f);
 				Dust.NewDust(npc.position, npc.width, npc.height, d, 2.5f * hitDirection, -2.5f, 0, Color.Purple, 0.7f);
 				Dust.NewDust(npc.position, npc.width, npc.height, d, 2.5f * hitDirection, -2.5f, 0, Color.Purple, 0.7f);
+				Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/AcidEye"), 1f);	
 			}
 		}
 	}

@@ -32,5 +32,14 @@ namespace Events.Items.AcidRain.Furniture
 
 			item.createTile = mod.TileType("ClusterChestTile");
 		}
+		public override void AddRecipes()
+		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(null, "CreepCluster", 5);
+            recipe.AddRecipeGroup("LeadBar", 2);	
+            recipe.AddTile(TileID.WorkBenches);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
 	}
 }

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using Terraria;
 using Terraria.ID;
+using Terraria.Utilities;
 using Terraria.ModLoader;
 
 namespace Events.Projectiles.MeteorShower
@@ -14,18 +15,21 @@ namespace Events.Projectiles.MeteorShower
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Meteor");
+						ProjectileID.Sets.TrailCacheLength[projectile.type] = 1;
+			ProjectileID.Sets.TrailingMode[projectile.type] = 0;
 		}
 
 		public override void SetDefaults()
 		{
-			projectile.width = 26;
+			projectile.width = 16;
 			projectile.penetrate = 1;
 			projectile.timeLeft = 6000;
 			projectile.height = 40;
 			projectile.magic = true;
 			projectile.friendly = true;
 		}
-		int dust1 = 0;
+	
+			int dust1 = 0;
 		public override void AI()
 		{
 			 projectile.rotation = projectile.velocity.ToRotation() + 1.57f;
