@@ -555,29 +555,6 @@ namespace Events
 		public override void PostUpdate()
 		{
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>(mod);
-			if (MyWorld.activeEvents.Contains(EventID.Jellyfish) && player.ZoneOverworldHeight && player.ZoneBeach) //This needs to be the name of your ModWaterStyle class.
-			{
-			int off = 3; //Change this value depending on the strength of your light. Too big and it might cause lag, though. Never go above ~20 or so.
-			int x = (int)(Main.screenPosition.X / 16f) - off;
-			int y = (int)(Main.screenPosition.Y / 16f) - off;
-			int x2 = x + (int)(Main.screenWidth / 16f) + off * 2;
-			int y2 = y + (int)(Main.screenHeight / 16f) + off * 2;
-
-			for (int i = x; i <= x2; i++)
-			{
-				for (int j = y; j <= y2; j++)
-				{
-					Tile t = Main.tile[i, j]; 
-					if (t == null) return;
-
-					if (!t.active() && t.liquid > 0 && t.liquidType() == 0)
-					{
-						//Set your lighting colour here. Try and keep the values quite small, too strong a light will require you to increase the "off" value up there
-						Lighting.AddLight(i, j, 0.12f, 0.2f, 0.4f);
-					}
-				}
-			}
-			}
 		    if (MyWorld.activeEvents.Contains(EventID.tranquil) && player.ZoneOverworldHeight && !player.ZoneBeach && !player.ZoneCorrupt && !player.ZoneCrimson && !player.ZoneJungle && !player.ZoneHoly) //This needs to be the name of your ModWaterStyle class.
 			{
 			int off = 5; //Change this value depending on the strength of your light. Too big and it might cause lag, though. Never go above ~20 or so.

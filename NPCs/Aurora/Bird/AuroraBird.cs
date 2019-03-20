@@ -36,6 +36,7 @@ namespace Events.NPCs.Aurora.Bird
 			npc.knockBackResist = 0.31f;
 			npc.noGravity = true;
 			npc.aiStyle = 44;
+			npc.value = 60f;
 			aiType = NPCID.FlyingAntlion;
 			npc.HitSound = SoundID.NPCHit1;
 			npc.DeathSound = SoundID.NPCDeath4;

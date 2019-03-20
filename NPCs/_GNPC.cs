@@ -133,7 +133,7 @@ namespace Events.NPCs
 		}
 		public override void SetupShop(int type, Chest shop, ref int nextSlot)
 		{
-			if (type == NPCID.GoblinTinkerer && MyWorld.activeEvents.Count > 0 && Main.hardMode)
+			if (type == NPCID.GoblinTinkerer && Main.hardMode)
 			{
 				shop.item[nextSlot].SetDefaults(mod.ItemType("WeatherTech"));
 				nextSlot++;
@@ -171,7 +171,7 @@ namespace Events.NPCs
 						}
 						else	
 						{
-							pool.Add(NPCID.IceElemental, .5f);					
+							pool.Add(NPCID.ZombieEskimo, .5f);					
 							if (Main.hardMode)
 							{
 								pool.Add(NPCID.IceElemental, .25f);	
@@ -249,7 +249,7 @@ namespace Events.NPCs
 		public override void AI(NPC npc)
 		{
 			Player player = Main.player[npc.target];
-			if (MyWorld.activeEvents.Contains(EventID.hurricane) && player.ZoneOverworldHeight)
+			if (MyWorld.activeEvents.Contains(EventID.hurricane) && player.ZoneOverworldHeight && npc.type != 488)
 			{
 				npc.velocity.X += .13f * (float)Main.windSpeed;
 			}

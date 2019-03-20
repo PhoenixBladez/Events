@@ -10,7 +10,7 @@ namespace Events.Buffs
 		public override void SetDefaults()
 		{
 			DisplayName.SetDefault("Heatstroke");
-			Description.SetDefault("The sweltering heat is reduces your movement speed");
+			Description.SetDefault("The sweltering heat is reduces your movement speed\nPerhaps a refreshing drink of water may help...");
 
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;

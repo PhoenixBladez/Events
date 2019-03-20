@@ -1,5 +1,5 @@
 author = Yuyutsu
-version = 1.0
+version = 1.0.0.3
 displayName = Various Weathers
 languageVersion = 6
 includePDB = true
