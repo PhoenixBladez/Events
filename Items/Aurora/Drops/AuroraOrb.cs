@@ -16,7 +16,7 @@ namespace Events.Items.Aurora.Drops
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Prismatic Orb");
-			Tooltip.SetDefault("Getting hurt may refract a homing wisp to attack enemies");
+			Tooltip.SetDefault("Getting hurt often refracts a homing wisp to attack enemies");
 			EventsGlowmask.AddGlowMask(item.type, "Events/Items/Aurora/Drops/AuroraOrb_Glow");
 		}
 

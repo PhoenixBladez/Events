@@ -29,6 +29,7 @@ namespace Events
 		public int windFallType = 0;
 		public bool hazmatHelm = false;
 		public bool auroraOrb = false;
+		public bool displayShader =false;
 		public bool heatEffect = false;
 		public bool hurricaneWind = false;
 		public bool windSky = false;
@@ -47,6 +48,7 @@ namespace Events
 			acidImbue = false;
 			hurricaneWind = false;
 			weatherTech = false;
+			displayShader =false;
 			etherVortex = false;
 			acidRainEffect = false;
 			ashOver = false;
@@ -62,12 +64,20 @@ namespace Events
                 !player.ZoneDesert && 
                 !Main.dayTime && 
                 (player.ZoneSnow) &&
+				MyWorld.activeEvents.Contains(EventID.aurora) || !Main.dayTime && 
+                (player.ZoneSkyHeight) &&
 				MyWorld.activeEvents.Contains(EventID.aurora);
+				
+			bool showHeat = MyWorld.activeEvents.Contains(EventID.heatWave) && player.ZoneOverworldHeight && displayShader && !player.ZoneSnow 
+				|| MyWorld.activeEvents.Contains(EventID.heatWave) &&  player.ZoneOverworldHeight && displayShader && player.wet || 
+				MyWorld.activeEvents.Contains(EventID.heatWave) && player.ZoneOverworldHeight && displayShader && !player.HasBuff(mod.BuffType("WaterBuff")) ;			
+			 
 			
             player.ManageSpecialBiomeVisuals("Events:AuroraSky", showAurora);
 			player.ManageSpecialBiomeVisuals("Events:AcidRain", acidRainEffect, player.Center);
-			player.ManageSpecialBiomeVisuals("Events:HeatWave", heatEffect, player.Center);
-			if (windSky == true)
+			player.ManageSpecialBiomeVisuals("Events:HeatWave", showHeat);
+
+			if (windSky == true && displayShader)
 			{
 				player.ManageSpecialBiomeVisuals("Events:WindySky", true);
 			}
@@ -93,7 +103,11 @@ namespace Events
 			}
 			bool meteor = MyWorld.activeEvents.Contains(EventID.Meteor);
 			player.ManageSpecialBiomeVisuals("Events:Meteor", meteor);
+			
+			bool meteorShader = MyWorld.activeEvents.Contains(EventID.Meteor) && displayShader;
+			player.ManageSpecialBiomeVisuals("Events:MeteorShader", meteorShader);
 			bool lightning = MyWorld.activeEvents.Contains(EventID.Lightning);
+			
 			player.ManageSpecialBiomeVisuals("Events:Stardust", lightning);
 		}       
 		
@@ -101,13 +115,13 @@ namespace Events
 		{
 			if (auroraOrb)
 			{
-				if (Main.rand.Next(4) == 0)
+				if (Main.rand.Next(2) == 0)
 				{
 					Vector2 vel = new Vector2(0, -1);
 					float rand = Main.rand.NextFloat() * MathHelper.TwoPi;
 					vel = vel.RotatedBy(rand);
 					vel *= 2f;
-					Projectile.NewProjectile(Main.player[Main.myPlayer].Center.X, Main.player[Main.myPlayer].Center.Y, vel.X, vel.Y, mod.ProjectileType("AuroraWisp"), 10, 0, Main.myPlayer);
+					Projectile.NewProjectile(Main.player[Main.myPlayer].Center.X, Main.player[Main.myPlayer].Center.Y, vel.X, vel.Y, mod.ProjectileType("AuroraWisp"), 12, 0, Main.myPlayer);
 				}
 			}
 		}
@@ -117,14 +131,6 @@ namespace Events
 		public override void PreUpdate()
 		{
 			Player player = Main.LocalPlayer;
-			if (MyWorld.activeEvents.Contains(EventID.tremors) && Main.rand.Next (500) == 0 && !player.ZoneSkyHeight && player.ZoneOverworldHeight)
-			{
-				MyWorld.screenshakeAmount = 5f;
-				if (Main.rand.Next (8) == 0)
-				{
-					player.AddBuff(BuffID.Dazed, 180);				
-				}
-			}
 			if (MyWorld.activeEvents.Contains(EventID.coldFront) && !player.ZoneDesert && player.ZoneOverworldHeight || MyWorld.activeEvents.Contains(EventID.Hail) && !player.ZoneDesert && player.ZoneOverworldHeight )
 			{		
 			int maxValue = 800;
@@ -216,18 +222,17 @@ namespace Events
 				}
 			}
 			}
-			if (MyWorld.activeEvents.Contains(EventID.tremors) && Main.rand.Next (500) == 0 && !player.ZoneSkyHeight && player.ZoneOverworldHeight)
+			if (MyWorld.activeEvents.Contains(EventID.coldFront) && player.ZoneOverworldHeight && player.wet ||MyWorld.activeEvents.Contains(EventID.coldFront) && player.ZoneOverworldHeight && player.ZoneSnow)
 			{
-				MyWorld.screenshakeAmount = 5f;
-				if (Main.rand.Next (8) == 0)
+
 				{
-					player.AddBuff(BuffID.Dazed, 180);				
+					player.AddBuff(BuffID.Chilled, 61);
 				}
 			}
 			if (MyWorld.activeEvents.Contains(EventID.tremors) && Main.rand.Next (430) == 0 && !player.ZoneSkyHeight && player.ZoneRockLayerHeight)
 			{
 				MyWorld.screenshakeAmount = 7f;
-				if (Main.rand.Next (6) == 0)
+				if (Main.rand.Next (6) == 0 && player.velocity.Y == 0)
 				{
 					player.AddBuff(BuffID.Dazed, 180);				
 				}
@@ -235,13 +240,19 @@ namespace Events
 			if (MyWorld.activeEvents.Contains(EventID.tremors) && Main.rand.Next (350) == 0 && !player.ZoneSkyHeight && player.ZoneUnderworldHeight)
 			{
 				MyWorld.screenshakeAmount = 10f;
-				if (Main.rand.Next (4) == 0)
+				if (Main.rand.Next (4) == 0 && player.velocity.Y == 0)
 				{
 					player.AddBuff(BuffID.Dazed, 180);				
 				}
 			}
 			if (MyWorld.activeEvents.Contains(EventID.heatWave) && player.ZoneOverworldHeight)
 			{
+				int x1 = (int)player.Center.X / 16;
+				int y1 = (int)player.Center.Y / 16;
+				if (Main.tile[x1 + 1, y1].wall != 0 && Main.tile[x1, y1 + 1].wall != 0 && Main.tile[x1, y1 + 2].wall != 0)
+				{
+				}
+				else
 				{
 					player.AddBuff(mod.BuffType("Heatstroke"), 61);
 				}
@@ -254,7 +265,15 @@ namespace Events
 			{
 				if (!hazmatHelm)
 				{
-					player.AddBuff(mod.BuffType("Acid"), 10);
+					int x1 = (int)player.Center.X / 16;
+				int y1 = (int)player.Center.Y / 16;
+				if (Main.tile[x1 + 1, y1].wall != 0 && Main.tile[x1, y1 + 1].wall != 0 && Main.tile[x1, y1 + 2].wall != 0)
+				{
+				}
+				else
+				{
+					player.AddBuff(mod.BuffType("Acid"), 600);
+				}
 				}
 			}
 			if (MyWorld.activeEvents.Contains(EventID.hurricane))
@@ -263,9 +282,10 @@ namespace Events
 				{
 					NPC npc = Main.npc[index3];
 					if( player.ZoneOverworldHeight)
-					npc.AddBuff(BuffID.Wet, 60);	
+					npc.AddBuff(BuffID.Wet, 60);
+					npc.AddBuff(mod.BuffType("HurricaneWinds"), 60);				
 				}
-				if (player.ZoneOverworldHeight)
+				if (player.ZoneOverworldHeight && displayShader)
 				{
 				player.AddBuff(BuffID.Wet, 60);
 				}				
@@ -354,11 +374,25 @@ namespace Events
                         }
                     }
                 }
-                if (doPush)
+                if (doPush && displayShader)
                     player.AddBuff(BuffID.WindPushed, 3);
-				 }
-				 if (MyWorld.activeEvents.Contains(EventID.windy) && player.ZoneOverworldHeight)
-				 {
+				}
+			}
+            int x = (int)player.Center.X / 16;
+            int y = (int)player.Center.Y / 16;
+            {
+                if (Main.tile[x + 1, y].wall != 0 && Main.tile[x, y + 1].wall != 0 && Main.tile[x, y + 2].wall != 0)
+                 {
+                      displayShader = false;
+                 }
+          
+			else
+			{
+			 displayShader = true;
+			}
+			}
+			if (MyWorld.activeEvents.Contains(EventID.windy) && player.ZoneOverworldHeight)
+			 {
 				counter++;
 				if (counter >= 900)
 				{
@@ -369,7 +403,7 @@ namespace Events
 					counter = 0;
 				}
 				}
-				 }
+				 
 			}
 			if (MyWorld.activeEvents.Contains(EventID.lightRain) && Main.raining)
 			{

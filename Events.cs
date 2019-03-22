@@ -45,6 +45,8 @@ namespace Events
 			Player player = Main.LocalPlayer;
 			Filters.Scene["Events:Meteor"] = new Filter(new ScreenShaderData("FilterMiniTower").UseColor(0.5f, 0.5f, 0.5f).UseOpacity(0f), EffectPriority.VeryHigh);
 			SkyManager.Instance["Events:Meteor"] = new SolarSky1();
+
+			Filters.Scene["Events:MeteorShader"] = new Filter(new ScreenShaderData("FilterMiniTower").UseColor(0f, 0.3f, .6f).UseOpacity(0.65f), EffectPriority.High);	
 			
 			Filters.Scene["Events:Stardust"] = new Filter(new ScreenShaderData("FilterMiniTower").UseColor(0.5f, 0.5f, 0.5f).UseOpacity(0f), EffectPriority.VeryHigh);
 			SkyManager.Instance["Events:Stardust"] = new LightningSky();
@@ -54,11 +56,11 @@ namespace Events
 			Filters.Scene["Events:WindySky"] = new Filter((new BlizzardShaderData("FilterBlizzardForeground")).UseColor(0.4f, 0.4f, 0.4f).UseSecondaryColor(0.2f, 0.2f, 0.2f).UseImage("Images/Misc/noise", 0, null).UseOpacity(0.069f).UseImageScale(new Vector2(3f, 0.75f), 0), EffectPriority.High);
 			SkyManager.Instance["Events:Ashstorm"] = new AshstormSky();
 
-            Filters.Scene["Events:Ashstorm"] = new Filter((new BlizzardShaderData("FilterBlizzardForeground")).UseColor(0.4f, 0.4f, 0.4f).UseSecondaryColor(0.2f, 0.2f, 0.2f).UseImage("Images/Misc/noise", 0, null).UseOpacity(0.07f).UseImageScale(new Vector2(3f, 0.75f), 0), EffectPriority.High);
+            Filters.Scene["Events:Ashstorm"] = new Filter((new BlizzardShaderData("FilterBlizzardForeground")).UseColor(0.01f, 0.01f, 0.01f).UseSecondaryColor(0.08f, 0.08f, 0.08f).UseImage("Images/Misc/noise", 0, null).UseOpacity(0.07f).UseImageScale(new Vector2(3f, 0.75f), 0), EffectPriority.High);
             //Literally only here so the game doesnt crash
             Filters.Scene["Events:AshstormParticles"] = new Filter((new ScreenShaderData("FilterMiniTower")).UseColor(0f, 0f, 0f).UseOpacity(0f), EffectPriority.VeryLow);
 
-            Terraria.Graphics.Effects.Overlays.Scene["Events:Ashstorm"] = new SimpleOverlay("Images/Misc/noise", (new BlizzardShaderData("FilterBlizzardBackground")).UseColor(0.4f, 0.4f, 0.4f).UseSecondaryColor(0.2f, 0.2f, 0.2f).UseImage("Images/Misc/noise", 0, null).UseOpacity(0.05f).UseImageScale(new Vector2(3f, 0.75f), 0), EffectPriority.High, RenderLayers.Landscape);
+            Terraria.Graphics.Effects.Overlays.Scene["Events:Ashstorm"] = new SimpleOverlay("Images/Misc/noise", (new BlizzardShaderData("FilterBlizzardBackground")).UseColor(0.0f, 0.0f, 0.0f).UseSecondaryColor(0.08f, 0.08f, 0.08f).UseImage("Images/Misc/noise", 0, null).UseOpacity(0.05f).UseImageScale(new Vector2(3f, 0.75f), 0), EffectPriority.High, RenderLayers.Landscape);
             Terraria.Graphics.Effects.Overlays.Scene["Events:AshstormParticles"] = new AshstormOverlay(EffectPriority.VeryHigh);
 			
 			auroraEffect = GetEffect("Effects/aurora");

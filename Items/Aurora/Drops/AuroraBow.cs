@@ -42,13 +42,13 @@ namespace Events.Items.Aurora.Drops
 
         public override void SetDefaults()
         {
-            item.damage = 9;
+            item.damage = 11;
             item.noMelee = true;
             item.ranged = true;
             item.width = 18;
             item.height = 50;
-            item.useTime = 27;
-            item.useAnimation = 27;
+            item.useTime = 26;
+            item.useAnimation = 26;
             item.useStyle = 5;
             item.shoot = 3;
             item.useAmmo = AmmoID.Arrow;
@@ -58,7 +58,7 @@ namespace Events.Items.Aurora.Drops
 			item.value = Item.buyPrice(0, 5, 0, 0);
 			item.value = Item.sellPrice(0, 2, 50, 0);
             item.autoReuse = false;
-            item.shootSpeed = 1f;
+            item.shootSpeed = .6f;
 
         }
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

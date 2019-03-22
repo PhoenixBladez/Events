@@ -80,7 +80,7 @@ namespace Events
 					    {
 				         StartEvent(EventID.lightRain);
 					    }					
-					    if (Main.rand.Next(23) == 0)
+					    if (Main.rand.Next(24) == 0)
 					    {
 						    if (!MyWorld.activeEvents.Contains(EventID.lightRain) || !MyWorld.activeEvents.Contains(EventID.heavyRain) || !MyWorld.activeEvents.Contains(EventID.acidRain) || !MyWorld.activeEvents.Contains(EventID.Hail))
 						    {
@@ -115,7 +115,7 @@ namespace Events
 					    EndEvent(EventID.aurora);
 					    auroraType = 0;
 				    }
-				    if (Main.rand.Next(13) == 0 && NPC.downedBoss2 && !Main.dayTime)
+				    if (Main.rand.Next(14) == 0 && NPC.downedBoss2 && !Main.dayTime)
 				    {
 					    StartEvent(EventID.Meteor);
 				    }
@@ -140,7 +140,7 @@ namespace Events
 				    {
 					    EndEvent(EventID.ashStorm);
 				    }
-					if (!Main.raining && Main.rand.Next(16) == 0 && Main.dayTime)
+					if (!Main.raining && Main.rand.Next(14) == 0 && Main.dayTime)
 					{
 						StartEvent(EventID.heatWave);
 					}
@@ -174,7 +174,7 @@ namespace Events
 				    {
 					    EndEvent(EventID.Jellyfish);
 				    }
-				    if (Main.rand.Next(16) == 0 && !Main.hardMode || Main.rand.Next(37) == 0 && Main.hardMode)
+				    if (Main.rand.Next(16) == 0 && !Main.hardMode && !Main.raining|| Main.rand.Next(37) == 0 && Main.hardMode && !Main.raining)
 				    {
 					    StartEvent(EventID.tranquil);
 					    EndEvent(EventID.ashfall);
@@ -202,7 +202,7 @@ namespace Events
 				    if (Main.rand.Next(13) == 0 && !Main.raining && !Main.dayTime || Main.rand.Next(25) == 0 && !Main.raining  && !Main.dayTime)
                     {
                         NPC.fireFlyChance = Main.rand.Next(0, 2);
-                        NPC.fireFlyMultiple = Main.rand.Next(0, 6);
+                        NPC.fireFlyMultiple = Main.rand.Next(6, 12);
                         StartEvent(EventID.fireflies);
 				    }
 				    else
@@ -219,7 +219,7 @@ namespace Events
 					}		
                 }
 		    }
-		    if (Main.windSpeed <= -.2f || Main.windSpeed >= .2f)
+		    if (Main.windSpeed <= -.23f || Main.windSpeed >= .23f)
 			{
 				if (Main.windSpeed >= -.3f || Main.windSpeed <= .3f)
 				{

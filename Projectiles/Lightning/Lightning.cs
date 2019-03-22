@@ -23,7 +23,7 @@ namespace Events.Projectiles.Lightning
             projectile.penetrate = -1;      //how many projectile will penetrate
             projectile.timeLeft = 240;   //how many time projectile projectile has before disepire
             projectile.light = 0.45f;    // projectile light
-            projectile.extraUpdates = 6;
+            projectile.extraUpdates = 7;
             projectile.ignoreWater = true;
 			projectile.alpha = 255;
         }

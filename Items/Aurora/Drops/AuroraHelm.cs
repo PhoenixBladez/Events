@@ -53,7 +53,7 @@ namespace Events.Items.Aurora.Drops
         {
             item.width = 28;
             item.height = 30;
-			item.defense = 1;
+			item.defense = 3;
             item.value = Item.sellPrice(0, 0, 5, 0);
             item.rare = 1;
             item.accessory = true;
@@ -65,7 +65,7 @@ namespace Events.Items.Aurora.Drops
 		 public override void UpdateArmorSet(Player player)
         {
   
-            player.setBonus = "Increases minion damage by 4%";
+            player.setBonus = "Increases minion damage by 5%";
 			player.minionDamage += .05f;
         }
         public override void UpdateEquip(Player player)

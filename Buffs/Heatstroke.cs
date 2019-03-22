@@ -32,7 +32,7 @@ namespace Events.Buffs
 			player.buffTime[buffIndex] = 0;	
 			modPlayer.heatEffect = false;		
 			}
-			if (player.ZoneDesert  || player.HasBuff(mod.BuffType("WaterBuff")))
+			if (player.ZoneDesert  && !player.HasBuff(mod.BuffType("WaterBuff")))
 			{
 				player.lifeRegen -= 4;
 			}

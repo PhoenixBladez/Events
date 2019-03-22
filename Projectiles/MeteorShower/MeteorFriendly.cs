@@ -34,7 +34,7 @@ namespace Events.Projectiles.MeteorShower
 		{
 			 projectile.rotation = projectile.velocity.ToRotation() + 1.57f;
             if(dust1 == 0)
-                dust1 = Main.rand.Next(new int[]{70, 58, 244, 6, 107, 68});
+                dust1 = Main.rand.Next(new int[]{172, 68});
 			Vector2 position = projectile.Center + Vector2.Normalize(projectile.velocity) * 10;
 
 			Dust newDust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, dust1, 0f, 0f, 0, default(Color), 1f)];

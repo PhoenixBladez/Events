@@ -21,7 +21,13 @@ namespace Events.NPCs
 {
 	public class GNPC : GlobalNPC
 	{
-		public override bool InstancePerEntity => true;
+		public override bool InstancePerEntity
+		{
+			get
+			{
+				return true;
+			}
+		}
 		public override void GetChat(NPC npc, ref string chat)
 		{
 					if (npc.type == NPCID.Angler && Main.rand.Next(4) == 0)
@@ -244,14 +250,6 @@ namespace Events.NPCs
 			float rotation = (float)Math.Atan2(vector8.Y - (player.position.Y + (player.height * 0.5f)), vector8.X - (player.position.X + (player.width * 0.5f)));
 			int num54 = Projectile.NewProjectile(vector8.X, vector8.Y, (float)((Math.Cos(rotation) * Speed) * -1), (float)((Math.Sin(rotation) * Speed) * -1), type, damage, 0f, 0);
 			
-			}
-		}
-		public override void AI(NPC npc)
-		{
-			Player player = Main.player[npc.target];
-			if (MyWorld.activeEvents.Contains(EventID.hurricane) && player.ZoneOverworldHeight && npc.type != 488)
-			{
-				npc.velocity.X += .13f * (float)Main.windSpeed;
 			}
 		}
 	}
