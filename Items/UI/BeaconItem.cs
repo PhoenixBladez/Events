@@ -39,7 +39,7 @@ namespace Events.Items.UI
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null,"BrokenBeacon", 1);
             recipe.AddRecipeGroup("LeadBar", 8);			
-			recipe.AddIngredient(ItemID.Wire, 25);
+			recipe.AddIngredient(ItemID.Lens, 8);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
 			recipe.AddRecipe();            

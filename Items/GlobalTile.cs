@@ -15,7 +15,7 @@ namespace Events.Items
 		public override void KillTile (int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem)
 		{
 			Player player = Main.LocalPlayer;
-			if (type == 1 || type == 25 || type == 117 || type == 203)
+			if (type == 1 || type == 25 || type == 117 || type == 203 || type == 57)
 			{
 				if (Main.rand.Next(90) == 1 && MyWorld.activeEvents.Contains(EventID.tremors) && player.ZoneRockLayerHeight && !NPC.AnyNPCs(mod.NPCType("Lavalith")))
 				{
@@ -42,7 +42,7 @@ namespace Events.Items
 			{
 				if (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight)
 				{
-					if (Main.rand.Next(60) == 1 && MyWorld.activeEvents.Contains(EventID.tremors) && !NPC.AnyNPCs(mod.NPCType("TarSap")))
+					if (Main.rand.Next(70) == 1 && MyWorld.activeEvents.Contains(EventID.tremors) && !NPC.AnyNPCs(mod.NPCType("TarSap")))
 					{
 						NPC.NewNPC((int)i * 16 - 20, (int)j * 16, mod.NPCType("TarSap"), 0, 2, 1, 0, 0, Main.myPlayer);			
 					}

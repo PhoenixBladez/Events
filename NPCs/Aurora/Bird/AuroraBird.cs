@@ -91,7 +91,7 @@ namespace Events.NPCs.Aurora.Bird
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
 						Player player = spawnInfo.player;
-			return spawnInfo.spawnTileY < Main.rockLayer && MyWorld.activeEvents.Contains(EventID.aurora) && player.ZoneOverworldHeight && player.ZoneSnow && !spawnInfo.playerSafe && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse && !NPC.AnyNPCs(mod.NPCType("AuroraBird"))? 0.12f : 0f;
+			return spawnInfo.spawnTileY < Main.rockLayer && MyWorld.activeEvents.Contains(EventID.aurora) && player.ZoneOverworldHeight && player.ZoneSnow && !spawnInfo.playerSafe && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse && !Main.bloodMoon && !NPC.AnyNPCs(mod.NPCType("AuroraBird"))? 0.12f : 0f;
 		}
 		public override void AI()
 		{	

@@ -12,7 +12,6 @@ namespace Events.Buffs
 			DisplayName.SetDefault("Weather Beacon");
 			Description.SetDefault("The strange beacon displays information about ongoing weather events");
 
-			Main.debuff[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;
 		}
 

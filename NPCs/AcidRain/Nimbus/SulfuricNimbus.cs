@@ -157,7 +157,7 @@ namespace Events.NPCs.AcidRain.Nimbus
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			return spawnInfo.spawnTileY < Main.rockLayer && MyWorld.activeEvents.Contains(EventID.acidRain) && !spawnInfo.playerSafe && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse ? 0.4f : 0f;
+			return spawnInfo.spawnTileY < Main.rockLayer && MyWorld.activeEvents.Contains(EventID.acidRain) && !spawnInfo.playerSafe && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse && !Main.bloodMoon ? 0.4f : 0f;
 		}
 		public override void FindFrame(int frameHeight)
 		{

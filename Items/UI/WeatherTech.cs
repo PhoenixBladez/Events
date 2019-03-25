@@ -28,7 +28,7 @@ namespace Events.Items.UI
             item.height = 34;
             item.value = Item.buyPrice(0, 30, 0, 0);
 			item.value = Item.sellPrice(0, 2, 0, 0);
-            item.rare = 3;
+            item.rare = 6;
             item.accessory = true;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)

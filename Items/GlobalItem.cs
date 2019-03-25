@@ -40,11 +40,18 @@ namespace Events.Items
         {
 			if (item.type == ItemID.BottledWater)
 			{
-			player.AddBuff(mod.BuffType("WaterBuff"), 14400);
-			 			return true;
+			player.AddBuff(mod.BuffType("WaterBuff"), 28800);
+			 return true;
 			}
 			else
 			return false;
+		}
+		public override void SetDefaults(Item item)
+		{
+			if (item.type == ItemID.BottledWater)
+			{
+				item.buffTime =600;
+			}
 		}
 	}
 }

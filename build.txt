@@ -1,5 +1,6 @@
 author = Yuyutsu
-version = 1.0.0.4
+version = 1.0.0.5
 displayName = Various Weathers
 languageVersion = 6
-includePDB = true
+includePDB = true Mod
+homepage = https://forums.terraria.org/index.php?threads/various-weathers.76825/

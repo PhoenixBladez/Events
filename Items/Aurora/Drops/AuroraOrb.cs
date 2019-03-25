@@ -49,7 +49,7 @@ namespace Events.Items.Aurora.Drops
             item.width = 28;
             item.height = 18;
             item.value = Item.sellPrice(0, 0, 15, 0);
-            item.rare = 4;
+            item.rare = 1;
             item.accessory = true;
         }
         public override void UpdateEquip(Player player)

@@ -104,7 +104,7 @@ namespace Events
 			bool meteor = MyWorld.activeEvents.Contains(EventID.Meteor);
 			player.ManageSpecialBiomeVisuals("Events:Meteor", meteor);
 			
-			bool meteorShader = MyWorld.activeEvents.Contains(EventID.Meteor) && displayShader;
+			bool meteorShader = MyWorld.activeEvents.Contains(EventID.Meteor) && displayShader && player.ZoneOverworldHeight;
 			player.ManageSpecialBiomeVisuals("Events:MeteorShader", meteorShader);
 			bool lightning = MyWorld.activeEvents.Contains(EventID.Lightning);
 			
@@ -249,7 +249,7 @@ namespace Events
 			{
 				int x1 = (int)player.Center.X / 16;
 				int y1 = (int)player.Center.Y / 16;
-				if (Main.tile[x1 + 1, y1].wall != 0 && Main.tile[x1, y1 + 1].wall != 0 && Main.tile[x1, y1 + 2].wall != 0)
+				if (Main.tile[x1, y1 + 1].wall != 0 && Main.tile[x1, y1].wall != 0)
 				{
 				}
 				else
@@ -267,7 +267,7 @@ namespace Events
 				{
 					int x1 = (int)player.Center.X / 16;
 				int y1 = (int)player.Center.Y / 16;
-				if (Main.tile[x1 + 1, y1].wall != 0 && Main.tile[x1, y1 + 1].wall != 0 && Main.tile[x1, y1 + 2].wall != 0)
+				if (Main.tile[x1, y1 + 1].wall != 0 && Main.tile[x1, y1].wall != 0)
 				{
 				}
 				else
@@ -305,6 +305,21 @@ namespace Events
 					Main.PlaySound(SoundLoader.customSoundType, player.position, mod.GetSoundSlot(SoundType.Custom, "Sounds/HurricaneWind"));
 					counter = 0;
 				}
+				}
+			}
+			if (MyWorld.activeEvents.Contains(EventID.ashfall) || MyWorld.activeEvents.Contains(EventID.ashStorm))
+			{				
+				if (Main.windSpeed <= -.01f)
+				{
+					Main.windSpeed = -.18f;;
+				}
+				if (Main.windSpeed >= .01f)
+				{
+					Main.windSpeed = .18f;
+				}
+				if (Main.windSpeed == 0f)
+				{
+					Main.windSpeed = .18f;
 				}
 			}
 			if (MyWorld.activeEvents.Contains(EventID.tranquil) && player.wet || MyWorld.activeEvents.Contains(EventID.tranquil) && Main.raining)
@@ -381,7 +396,7 @@ namespace Events
             int x = (int)player.Center.X / 16;
             int y = (int)player.Center.Y / 16;
             {
-                if (Main.tile[x + 1, y].wall != 0 && Main.tile[x, y + 1].wall != 0 && Main.tile[x, y + 2].wall != 0)
+                if (Main.tile[x, y + 1].wall != 0 && Main.tile[x, y].wall != 0)
                  {
                       displayShader = false;
                  }

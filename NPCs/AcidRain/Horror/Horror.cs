@@ -64,7 +64,7 @@ namespace Events.NPCs.AcidRain.Horror
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			return spawnInfo.spawnTileY < Main.rockLayer && MyWorld.activeEvents.Contains(EventID.acidRain) && !spawnInfo.playerSafe && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse && !NPC.AnyNPCs(mod.NPCType("Horror"))? 0.08f : 0f;
+			return spawnInfo.spawnTileY < Main.rockLayer && MyWorld.activeEvents.Contains(EventID.acidRain) && !spawnInfo.playerSafe && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse && !Main.bloodMoon && !NPC.AnyNPCs(mod.NPCType("Horror"))? 0.08f : 0f;
 		}
 		public override void NPCLoot()
 		{

@@ -167,7 +167,7 @@ namespace Events.NPCs
 			for (int k = 0; k < 255; k++)
             {
                 Player player = Main.player[k];
-                if (player.ZoneOverworldHeight && MyWorld.activeEvents.Contains(EventID.Hail) || player.ZoneOverworldHeight && MyWorld.activeEvents.Contains(EventID.coldFront)) 
+                if (player.ZoneOverworldHeight && MyWorld.activeEvents.Contains(EventID.Hail) && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse && !Main.bloodMoon && !player.ZoneMeteor|| player.ZoneOverworldHeight && MyWorld.activeEvents.Contains(EventID.coldFront)  && !player.ZoneMeteor && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse && !Main.bloodMoon ) 
                 {
 					if (!player.ZoneDesert)
 					{
@@ -189,7 +189,7 @@ namespace Events.NPCs
 			 for (int k = 0; k < 255; k++)
             {
                 Player player = Main.player[k];
-                if (MyWorld.activeEvents.Contains(EventID.butterflies) && player.ZoneOverworldHeight && !player.ZoneBeach && !player.ZoneCorrupt && !player.ZoneCrimson && !player.ZoneJungle && !player.ZoneHoly && Main.dayTime) //This needs to be the name of your ModWaterStyle class.
+                if (MyWorld.activeEvents.Contains(EventID.butterflies) && player.ZoneOverworldHeight && !player.ZoneBeach && !player.ZoneCorrupt && !player.ZoneCrimson && !player.ZoneJungle && !player.ZoneHoly && Main.dayTime  && !player.ZoneMeteor && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse && !Main.bloodMoon  ) //This needs to be the name of your ModWaterStyle class.
 				{
 					pool.Add(356, 5f);	
 				}
@@ -197,7 +197,7 @@ namespace Events.NPCs
 			 for (int k = 0; k < 255; k++)
             {
                 Player player = Main.player[k];
-                if (MyWorld.activeEvents.Contains(EventID.tranquil) && player.ZoneOverworldHeight && !player.ZoneBeach && !player.ZoneCorrupt && !player.ZoneCrimson && !player.ZoneJungle && !player.ZoneHoly && Main.dayTime) //This needs to be the name of your ModWaterStyle class.
+                if (MyWorld.activeEvents.Contains(EventID.tranquil) && player.ZoneOverworldHeight && !player.ZoneBeach && !player.ZoneCorrupt && !player.ZoneCrimson && !player.ZoneJungle && !player.ZoneHoly && Main.dayTime  && !player.ZoneMeteor && !spawnInfo.invasion && !spawnInfo.sky && !Main.eclipse && !Main.bloodMoon ) //This needs to be the name of your ModWaterStyle class.
 				{
                     pool.Clear(); //remove ALL spawns here
                     pool.Add(NPCID.Bird, .35f);
@@ -215,7 +215,7 @@ namespace Events.NPCs
 					pool.Add(364, .1f);
 					pool.Add(365, .1f);
                 }
-				 if (MyWorld.activeEvents.Contains(EventID.tranquil) && player.ZoneOverworldHeight && !player.ZoneBeach && !player.ZoneCorrupt && !player.ZoneCrimson && !player.ZoneJungle && !player.ZoneHoly && !Main.dayTime) //This needs to be the name of your ModWaterStyle class.
+				 if (MyWorld.activeEvents.Contains(EventID.tranquil) && player.ZoneOverworldHeight && !player.ZoneBeach && !player.ZoneCorrupt && !player.ZoneCrimson && !player.ZoneJungle && !player.ZoneMeteor && !player.ZoneHoly && !Main.dayTime) //This needs to be the name of your ModWaterStyle class.
 				{
 					pool.Clear();
 					pool.Add(NPCID.Bunny, .35f);

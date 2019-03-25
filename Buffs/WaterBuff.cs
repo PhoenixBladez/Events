@@ -19,7 +19,10 @@ namespace Events.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			
+			if (MyWorld.activeEvents.Contains(EventID.heatWave))
+			{
+			player.buffTime[BuffID.PotionSickness] = 0;
+			}
 		}
 	}
 }
