@@ -36,6 +36,11 @@ namespace Events.Projectiles.Lightning
 			}
 			projectile.velocity = Vector2.Zero;
 			projectile.Center = projectile.Center + initialVel.RotatedByRandom(MathHelper.ToRadians(120));
+			Point tile = new Point((int)(projectile.Center.X / 16f), (int)(projectile.Center.Y / 16f));
+			if (Main.tile[tile.X, tile.Y] != null && Main.tile[tile.X, tile.Y].active())
+			{
+				projectile.Kill();
+			}						
 			for (int i = -1; i < 1; i++)
 			{
 				for (int index1 = 0; index1 < 1; ++index1)

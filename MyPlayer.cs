@@ -351,7 +351,7 @@ namespace Events
                 bool doPush = true;
                 if (leftPush)
                 {
-                    float x1 = (player.Center.X + Main.screenWidth / 4)/ 16f;
+                    float x1 = (player.Center.X + Main.screenWidth / 8)/ 16f;
                     int playerTile = (int)player.Center.X / 16;
                     int offScTile = (int)x1;
                     int playerTileY = (int)player.Center.Y / 16;
@@ -371,7 +371,7 @@ namespace Events
                 }
                 else //right push
                 {
-                    float x1 = (player.Center.X - Main.screenWidth /4)/ 16f;
+                    float x1 = (player.Center.X - Main.screenWidth /8)/ 16f;
                     int playerTile = (int)player.Center.X / 16;
                     int offScTile = (int)x1;
                     int playerTileY = (int)player.Center.Y / 16;
@@ -389,7 +389,7 @@ namespace Events
                         }
                     }
                 }
-                if (doPush && displayShader)
+                if (doPush)
                     player.AddBuff(BuffID.WindPushed, 3);
 				}
 			}

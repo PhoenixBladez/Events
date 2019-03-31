@@ -48,7 +48,7 @@ namespace Events
 
 			Filters.Scene["Events:MeteorShader"] = new Filter(new ScreenShaderData("FilterMiniTower").UseColor(0f, 0.3f, .6f).UseOpacity(0.15f), EffectPriority.High);	
 			
-			Filters.Scene["Events:Stardust"] = new Filter(new ScreenShaderData("FilterMiniTower").UseColor(0.5f, 0.5f, 0.5f).UseOpacity(0f), EffectPriority.VeryHigh);
+			Filters.Scene["Events:Stardust"] = new Filter(new ScreenShaderData("FilterMiniTower").UseColor(0.5f, 0.5f, 0.5f).UseOpacity(0f), EffectPriority.VeryHigh);			
 			SkyManager.Instance["Events:Stardust"] = new LightningSky();
 			
 			Filters.Scene["Events:AcidRain"] = new Filter(new ScreenShaderData("FilterBloodMoon").UseColor(0.5f, 1f, .25f).UseOpacity(1.25f), EffectPriority.Medium);

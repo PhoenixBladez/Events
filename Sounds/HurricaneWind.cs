@@ -11,7 +11,7 @@ namespace Events.Sounds
 			soundInstance = sound.CreateInstance();
 			soundInstance.Volume = volume * .65f;
 			soundInstance.Pan = pan;
-			soundInstance.Pitch = Main.rand.Next(-10, 8) /30f;
+			soundInstance.Pitch = Main.rand.Next(-2, 8) /25f;
 			return soundInstance;
 
 		}
