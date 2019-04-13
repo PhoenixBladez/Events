@@ -22,7 +22,7 @@ using Terraria.GameContent.Events;
 using Events;
 using Events.Skies;
 using Events.Overlays;
-
+using Events.UI;
 
 namespace Events
 {
@@ -35,8 +35,17 @@ namespace Events
     }
 	class Events : Mod
 	{
+		public static Events Instance;
         public static Effect auroraEffect;
         public static Texture2D noise;		
+		internal static UserInterface eventsUserInterface;
+		internal static EventsJournalUIState eventsUIState;
+
+		public Events()
+		{
+			Instance = this;
+		}
+
 		public override void Load()
 		{
 			if (!Main.dedServ) 
@@ -72,14 +81,20 @@ namespace Events
 
             //the actually important thing
             Terraria.Graphics.Effects.Overlays.Scene["Events:AuroraSky"] = new AuroraOverlay(EffectPriority.VeryHigh);
+
+				eventsUserInterface = new UserInterface();
+				eventsUIState = new EventsJournalUIState();
 			}
 			base.Load();
 		}
 		 public override void Unload()
         {
-            auroraEffect = null;
+			Instance = null;
+			auroraEffect = null;
             noise = null;
-        }
+			eventsUserInterface = null;
+			eventsUIState = null;
+		}
 		
 		public override void UpdateMusic(ref int music, ref MusicPriority priority)
 		{
@@ -118,6 +133,12 @@ namespace Events
 			}
 			
 		}
+
+		public override void UpdateUI(GameTime gameTime)
+		{
+			eventsUserInterface?.Update(gameTime);
+		}
+
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
 						Mod mod = ModLoader.GetMod("Events");
@@ -135,7 +156,22 @@ namespace Events
                     InterfaceScaleType.UI);
                 layers.Insert(index, eventThing);
             }
-        }
+
+			int inventoryLayerIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
+			if (inventoryLayerIndex != -1)
+			{
+				layers.Insert(inventoryLayerIndex, new LegacyGameInterfaceLayer(
+					"RecipeBrowser: UI",
+					delegate
+					{
+						eventsUserInterface.Draw(Main.spriteBatch, new GameTime());
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+			}
+		}
+
         public void DrawEventAcc(SpriteBatch spriteBatch)
         {
             float offsetY = 0;

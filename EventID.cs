@@ -22,6 +22,11 @@ namespace Events
 	{
         public static String[] nameString = {"Meteor Shower", "Thunderstorm", "Jellyfish Swarm", "Acid Rain", "Ashfall", "Heavy Rain", "Winds", "Heavy Winds", "Hailstorm", "Heat Wave", "Light Rain", "Ash Storm", "Boreal Aurora", "Hurricane", "Tremors", "Tranquil Winds", "Butterfly Swarm", "Firefly Swarm", "Cold Front", "Stardust" };
 
+		public static String[] descriptionString = 
+		{
+			"Meteor Shower description", "Thunderstorm description", "Jellyfish Swarm description", "Acid Rain description", "Ashfall description", "Heavy Rain description", "Winds description", "Heavy Winds description", "Hailstorm description", "Heat Wave description", "Light Rain description", "Ash Storm description", "Boreal Aurora description", "Hurricane description", "Tremors description", "Tranquil Winds description", "Butterfly Swarm description", "Firefly Swarm description", "Cold Front description", "Stardust description"
+		};
+
         public const short Meteor = 0;
         public const short Lightning = 1;
         public const short Jellyfish = 2;
